@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reporte de Salud Web - La Tarumba</title>
+
+<!-- Bootstrap 5 CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+<style>
+:root {
+--brand-primary: #0b86a2;
+--brand-highlight: #d5f355;
+--brand-dark: #075c70;
+--text-dark: #2c3e50;
+}
+
+body {
+font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+background-color: #ffffff;
+color: var(--text-dark);
+}
+
+/* Hero Section */
+.hero-section {
+background: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-dark) 100%);
+color: white;
+padding: 4rem 0;
+border-bottom: 10px solid var(--brand-highlight);
+}
+
+.score-card-main {
+background: rgba(255, 255, 255, 0.1);
+backdrop-filter: blur(10px);
+border: 2px solid var(--brand-highlight);
+border-radius: 20px;
+padding: 2rem;
+text-align: center;
+}
+
+.score-circle {
+width: 150px;
+height: 150px;
+border-radius: 50%;
+background: white;
+color: var(--brand-primary);
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 3.5rem;
+font-weight: 800;
+margin: 0 auto 1rem;
+box-shadow: 0 0 20px rgba(213, 243, 85, 0.5);
+}
+
+/* Dashboard Cards */
+.metric-card {
+border: none;
+border-radius: 15px;
+box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+transition: transform 0.3s ease;
+height: 100%;
+}
+
+.metric-card:hover {
+transform: translateY(-5px);
+}
+
+.metric-icon {
+font-size: 2.5rem;
+color: var(--brand-primary);
+margin-bottom: 1rem;
+}
+
+.score-badge {
+background-color: var(--brand-highlight);
+color: var(--brand-dark);
+font-weight: bold;
+padding: 0.25rem 0.75rem;
+border-radius: 50px;
+}
+/* Accordion Customization */
+.accordion-item {
+border: 1px solid #e9ecef;
+border-radius: 10px !important;
+margin-bottom: 1rem;
+overflow: hidden;
+box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+}
+
+.accordion-button {
+font-weight: 600;
+font-size: 1.1rem;
+}
+
+.accordion-button:not(.collapsed) {
+background-color: rgba(11, 134, 162, 0.1);
+color: var(--brand-primary);
+}
+
+.accordion-button:focus {
+box-shadow: none;
+border-color: var(--brand-primary);
+}
+
+/* Tabs inside Accordion */
+.nav-tabs .nav-link {
+color: var(--text-dark);
+border: none;
+border-bottom: 3px solid transparent;
+}
+
+.nav-tabs .nav-link.active {
+color: var(--brand-primary);
+border-bottom: 3px solid var(--brand-primary);
+font-weight: bold;
+}
+
+/* Severity Indicators */
+.severity-critical { color: #dc3545; }
+.severity-warning { color: #ffc107; }
+.severity-good { color: #198754; }
+
+/* Footer */
+footer {
+background-color: #f8f9fa;
+border-top: 1px solid #e9ecef;
+padding: 2rem 0;
+margin-top: 4rem;
+}
+
+.good-job-list li {
+margin-bottom: 0.5rem;
+font-size: 1.1rem;
+}
+
+.check-icon {
+color: #198754;
+margin-right: 10px;
+font-weight: bold;
+}
+</style>
+</head>
+<body>
+
+<!-- HERO SECTION -->
+<section class="hero-section">
+<div class="container">
+<div class="row align-items-center">
+<div class="col-lg-7 mb-4 mb-lg-0">
+<h1 class="display-4 fw-bold mb-3">Diagnóstico y Plan de Acción</h1>
+
+<h4 class="mb-4" style="color: var(--brand-highlight);">https://tienda.latarumba.com/</h4>
+
+<p class="lead">
+¡Buenas noticias! Tu sitio tiene una base sólida y una identidad
+visual potente. Hemos analizado tu tienda y detectado oportunidades clave para
+que la experiencia de compra sea tan mágica como tus espectáculos. ¡Vamos a
+optimizarla!
+</p>
+<div class="mt-4">
+<span class="badge bg-light text-dark me-2 p-2">📅 Fecha: 13 Ene 2026</span>
+<span class="badge bg-light text-dark p-2">📱 Dispositivo: Móvil (Prioridad)</span>
+</div>
+</div>
+<div class="col-lg-5">
+<div class="score-card-main">
+<h3 class="mb-3">Puntuación Global</h3>
+<div class="score-circle">
+62
+</div>
+<p class="mb-0">Hay margen de mejora considerable en rendimiento móvil.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- DASHBOARD RESUMEN -->
+<section class="container my-5">
+<div class="row mb-5">
+<div class="col-12 text-center mb-4">
+<h2 class="fw-bold" style="color: var(--brand-primary);">Tu Sitio Web de un Vistazo</h2>
+<p class="text-muted">Desglose de las 4 áreas fundamentales de Google PageSpeed</p>
+</div>
+
+<!-- Cards -->
+<div class="col-md-6 col-lg-3 mb-4">
+<div class="metric-card p-4 text-center">
+<div class="metric-icon">🚀</div>
+<h4>Rendimiento</h4>
+<span class="score-badge bg-warning text-dark mb-3 d-inline-block">45/100</span>
+<p class="small text-muted">La velocidad de carga en 3G/4G necesita atención urgente para evitar rebotes, este es un factor a solucionar con urgencia si se piensa llevar publicidad a este sitio web.</p>
+</div>
+</div>
+<div class="col-md-6 col-lg-3 mb-4">
+<div class="metric-card p-4 text-center">
+<div class="metric-icon">🔍</div>
+<h4>SEO</h4>
+<span class="score-badge bg-success text-white mb-3 d-inline-block">92/100</span>
+<p class="small text-muted">¡Excelente estructura! Tu sitio es muy fácil de entender para Google, pero requiere mantenimiento continuo y se recomienda establecer una política de SEO.</p>
+</div>
+</div>
+<div class="col-md-6 col-lg-3 mb-4">
+<div class="metric-card p-4 text-center">
+<div class="metric-icon">♿</div>
+<h4>Accesibilidad</h4>
+<span class="score-badge bg-info text-white mb-3 d-inline-block">85/100</span>
+<p class="small text-muted">Tu sitio es inclusivo, aunque faltan etiquetas en algunos botones y se recomienda mejorar la navegabilidad.</p>
+</div>
+</div>
+<div class="col-md-6 col-lg-3 mb-4">
+<div class="metric-card p-4 text-center">
+<div class="metric-icon">👍</div>
+<h4>Buenas Prácticas</h4>
+<span class="score-badge bg-success text-white mb-3 d-inline-block">90/100</span>
+<p class="small text-muted">Código seguro y moderno. ¡Muy buen trabajo técnico!</p>
+</div>
+</div>
+</div>
+
+<!-- Radar Chart Section -->
+<div class="row justify-content-center">
+<div class="col-md-8 col-lg-6">
+<div class="card border-0 shadow-sm p-3">
+<canvas id="scoresChart"></canvas>
+</div>
+</div>
+</div>
+</section>
+
+<!-- PLAN DE ACCIÓN (ACORDEÓN) -->
+<section class="container my-5">
+<h2 class="fw-bold mb-4" style="color: var(--brand-primary);">🎯 Tu Plan de Acción Priorizado</h2>
+
+<div class="accordion" id="actionPlan">
+
+<!-- ISSUE 1: LCP (CRÍTICO) -->
+<div class="accordion-item">
+<h2 class="accordion-header" id="headingOne">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+<span class="severity-critical me-2">🔴</span>
+El "Primer Pintado" (LCP) es lento (4.2s) - Las imágenes grandes bloquean la vista
+</button>
+</h2>
+
+<div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#actionPlan">
+<div class="accordion-body">
+<!-- Tabs -->
+<ul class="nav nav-tabs mb-3" id="tabLCP" role="tablist">
+<li class="nav-item" role="presentation">
+<button class="nav-link active" data-bs-toggle="tab" data-bs-target="#meaning1" type="button">🤔 ¿Qué significa esto?</button>
+</li>
+<li class="nav-item" role="presentation">
+<button class="nav-link" data-bs-toggle="tab" data-bs-target="#impact1" type="button">🎯 ¿Por qué me afecta?</button>
+</li>
+<li class="nav-item" role="presentation">
+<button class="nav-link" data-bs-toggle="tab" data-bs-target="#fix1" type="button">🛠️ ¿Cómo lo soluciono?</button>
+</li>
+</ul>
+<!-- Tab Content -->
+<div class="tab-content p-3 bg-light rounded">
+<div class="tab-pane fade show active" id="meaning1">
+<p><strong>La Analogía del Telón:</strong> Imagina que vas al circo, te sientas, y el telón tarda 4 segundos en abrirse completamente. Te pones ansioso, ¿verdad? En tu web, el "LCP" es ese momento en que el elemento más grande (probablemente el banner principal de la tienda) se ve completo. Actualmente, tus usuarios ven una pantalla en blanco o a medio cargar por demasiado tiempo.</p>
+</div>
+<div class="tab-pane fade" id="impact1">
+<ul>
+<li><strong>Abandono:</strong> Si tarda más de 3 segundos, el 53% de los usuarios móviles se van.</li>
+<li><strong>Conversión:</strong> Cada segundo de retraso en móviles puede reducir las conversiones (ventas) hasta un 20%.</li>
+<li><strong>Imagen de Marca:</strong> Una carga lenta en un sitio artístico/visual resta impacto emocional.</li>
+</ul>
+</div>
+<div class="tab-pane fade" id="fix1">
+<ol>
+<li><strong>Formatos Modernos:</strong> Convierte las imágenes (JPG/PNG) a <strong>WebP</strong> o <strong>AVIF</strong>. Son más ligeros y mantienen la calidad.</li>
+<li><strong>Dimensiones Correctas:</strong> No cargues una imagen de 2000px de ancho para un celular. Usa el atributo <code>srcset</code> en HTML para servir versiones más pequeñas en móviles.</li>
+<li><strong>Precarga (Preload):</strong> Pide a tu desarrollador que agregue <code>&lt;link rel="preload"&gt;</code> para la imagen principal del banner.</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- ISSUE 2: Render Blocking Resources (CRÍTICO) -->
+<div class="accordion-item">
+<h2 class="accordion-header" id="headingTwo">
+<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
+<span class="severity-critical me-2">🔴</span>
+Eliminar recursos que bloquean el renderizado (CSS/JS sin uso)
+</button>
+</h2>
+
+<div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#actionPlan">
+<div class="accordion-body">
+<ul class="nav nav-tabs mb-3">
+<li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#meaning2">🤔 ¿Qué significa?</button></li>
+<li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#impact2">🎯 Impacto</button></li>
+<li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#fix2">🛠️ Solución</button></li>
+</ul>
+<div class="tab-content p-3 bg-light rounded">
+<div class="tab-pane fade show active" id="meaning2">
+<p>Tu sitio intenta leer todo el guion de la obra (archivos CSS y JavaScript) antes de mostrar la primera escena. Muchos de esos archivos no son necesarios para lo que el usuario está viendo en ese momento.</p>
+</div>
+<div class="tab-pane fade" id="impact2">
+<p>El navegador se queda "pensando" con la pantalla en blanco mientras descarga archivos que quizás solo se usan en el pie de página o en el carrito de compras, retrasando la experiencia visual inicial.</p>
+</div>
+<div class="tab-pane fade" id="fix2">
+<ol>
+<li><strong>Deferir JavaScript:</strong> Agrega el atributo <code>defer</code> o <code>async</code> a los scripts que no son esenciales para la carga inicial.</li>
+<li><strong>Minificar CSS/JS:</strong> Elimina espacios y comentarios del código para reducir el peso de los archivos.</li>
+<li><strong>Revisar Plugins:</strong> Si usas WordPress o similar, desactiva plugins que carguen estilos en páginas donde no se usan.</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- ISSUE 3: CLS (IMPORTANTE) -->
+<div class="accordion-item">
+<h2 class="accordion-header" id="headingThree">
+<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree">
+<span class="severity-warning me-2">🟡</span>
+Cambios de Diseño Acumulados (CLS) - Elementos que "saltan"
+</button>
+</h2>
+
+<div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#actionPlan">
+<div class="accordion-body">
+<ul class="nav nav-tabs mb-3">
+<li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#meaning3">🤔 ¿Qué significa?</button></li>
+<li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#impact3">🎯 Impacto</button></li>
+<li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#fix3">🛠️ Solución</button></li>
+</ul>
+<div class="tab-content p-3 bg-light rounded">
+<div class="tab-pane fade show active" id="meaning3">
+<p>¿Alguna vez has ido a hacer clic en un botón y de repente se mueve porque cargó una imagen arriba? Eso es CLS. En tu tienda, las imágenes de productos a veces empujan el texto hacia abajo mientras cargan.</p>
+</div>
+<div class="tab-pane fade" id="impact3">
+<p>Esto genera frustración y clics erróneos (el usuario termina comprando algo que no quería o yendo a otra página por error). Google penaliza esto severamente.</p>
+</div>
+<div class="tab-pane fade" id="fix3">
+<ol>
+<li><strong>Dimensiones Explícitas:</strong> Asegúrate de que todas las etiquetas <code>&lt;img&gt;</code> tengan los atributos <code>width</code> y <code>height</code> definidos. Esto reserva el espacio antes de que la imagen cargue.</li>
+<li><strong>Fuentes Web:</strong> Asegura que el texto sea visible mientras carga la fuente personalizada (usa <code>font-display: swap</code> en tu CSS).</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- ISSUE 4: ACCESIBILIDAD (MEJORA) -->
+<div class="accordion-item">
+<h2 class="accordion-header" id="headingFour">
+<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour">
+<span class="severity-good me-2">🟢</span>
+Oportunidad SEO: Texto Alternativo (Alt Text) en Imágenes
+</button>
+</h2>
+
+<div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#actionPlan">
+<div class="accordion-body">
+<p class="mb-2"><strong>Detalle:</strong> Algunas imágenes decorativas o de productos no tienen una descripción textual.</p>
+<p class="mb-2"><strong>Acción:</strong> Revisa tu biblioteca de medios. Asegúrate de que cada imagen tenga un texto descriptivo. Ej: en lugar de <code>IMG_001.jpg</code>, usa <code>Payaso-La-Tarumba-Espectaculo-2025.jpg</code> y el texto alt "Payaso del elenco La Tarumba realizando acrobacia".</p>
+<p class="text-success fw-bold">Beneficio: Mejora el SEO de imágenes y ayuda a usuarios con lectores de pantalla.</p>
+</div>
+</div>
+</div>
+
+</div>
+</section>
+
+<!-- COSAS QUE HACES BIEN -->
+<section class="container my-5 py-4 bg-light rounded-3">
+<div class="row">
+<div class="col-12">
+<h3 class="fw-bold mb-4">✨ ¡Excelente Trabajo Aquí!</h3>
+<p>No todo son correcciones. Tienes bases muy sólidas sobre las cuales crecer:</p>
+
+<div class="row">
+<div class="col-md-6">
+<ul class="list-unstyled good-job-list">
+<li><span class="check-icon">✓</span> <strong>Seguridad HTTPS:</strong> Tu tienda es segura para transacciones.</li>
+<li><span class="check-icon">✓</span> <strong>Diseño Responsive:</strong> El sitio se adapta bien a diferentes tamaños de pantalla.</li>
+<li><span class="check-icon">✓</span> <strong>Etiquetas Meta:</strong> Títulos y descripciones bien configurados para buscadores.</li>
+</ul>
+</div>
+<div class="col-md-6">
+<ul class="list-unstyled good-job-list">
+<li><span class="check-icon">✓</span> <strong>Evitas Plugins obsoletos:</strong> No usas Flash o tecnologías viejas.</li>
+<li><span class="check-icon">✓</span> <strong>Botones táctiles:</strong> Los botones tienen buen tamaño para dedos en móviles.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer class="text-center text-muted">
+<div class="container">
+<p class="mb-1">Reporte generado por <strong>La Mediática Perú</strong></p>
+<small>Basado en auditoría web para tienda.latarumba.com | Enero 2026</small>
+</div>
+</footer>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+// Inicialización del Gráfico de Radar
+document.addEventListener('DOMContentLoaded', function() {
+const ctx = document.getElementById('scoresChart').getContext('2d');
+
+const data = {
+labels: ['Rendimiento', 'SEO', 'Accesibilidad', 'Buenas Prácticas'],
+datasets: [{
+label: 'Puntuación Actual',
+data: [45, 92, 85, 90],
+fill: true,
+backgroundColor: 'rgba(213, 243, 85, 0.4)', // Color Highlight transparente
+borderColor: '#0b86a2', // Color Brand Primary
+pointBackgroundColor: '#0b86a2',
+pointBorderColor: '#fff',
+pointHoverBackgroundColor: '#fff',
+pointHoverBorderColor: '#0b86a2'
+}]
+};
+
+const config = {
+type: 'radar',
+data: data,
+options: {
+responsive: true,
+scales: {
+r: {
+angleLines: {
+display: true
+},
+suggestedMin: 0,
+suggestedMax: 100,
+ticks: {
+stepSize: 20,
+backdropColor: 'transparent' // Oculta fondo de números
+}
+}
+},
+plugins: {
+legend: {
+display: false
+}
+}
+}
+};
+
+new Chart(ctx, config);
+});
+</script>
+</body>
+</html>
