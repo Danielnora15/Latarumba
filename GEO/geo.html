@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GEO: Generative Engine Optimization para La Mediática</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com"></script>
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- Plotly.js -->
+<script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+
+<!-- Palette Choice: Energetic & Tech (Vibrant Blue, Neon Purple, Signal Green) -->
+<!-- Palette Name: Cyber Future -->
+<!-- NEITHER Mermaid JS NOR SVG were used in this output. -->
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
+
+body {
+font-family: 'Inter', sans-serif;
+background-color: #F3F4F6;
+color: #1F2937;
+}
+
+.chart-container {
+position: relative;
+width: 100%;
+max-width: 600px;
+margin-left: auto;
+margin-right: auto;
+height: 350px;
+max-height: 400px;
+}
+
+.chart-container-large {
+position: relative;
+width: 100%;
+max-width: 100%;
+height: 400px;
+max-height: 500px;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+width: 8px;
+}
+::-webkit-scrollbar-track {
+background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+background: #4F46E5;
+border-radius: 4px;
+}
+
+/* Diagram Box Styling */
+.process-box {
+transition: all 0.3s ease;
+border-left: 4px solid #4F46E5;
+}
+.process-box:hover {
+transform: translateY(-2px);
+box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.arrow-down {
+width: 0;
+height: 0;
+border-left: 10px solid transparent;
+border-right: 10px solid transparent;
+border-top: 10px solid #9CA3AF;
+margin: 0.5rem auto;
+}
+
+/* Fix for custom rotation class used in your HTML */
+.md-rotate-270 {
+transform: rotate(270deg);
+}
+</style>
+</head>
+<body class="bg-slate-50">
+
+<!-- Header Section -->
+<header class="bg-white shadow-lg sticky top-0 z-50">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+<div class="flex justify-between items-center">
+<div>
+<h1 class="text-3xl font-extrabold text-indigo-700 tracking-tight">GEO <span class="text-gray-900">Research</span></h1>
+<p class="text-sm text-gray-500 font-medium">Generative Engine Optimization para Agentes IA</p>
+</div>
+<div class="hidden md:block">
+<span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-indigo-100 text-indigo-800">
+Estrategia para Gemini Studio
+</span>
+</div>
+</div>
+</div>
+</header>
+
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+
+<!-- Introduction & Hook -->
+<section class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+
+<div class="bg-white p-8 rounded-xl shadow-md border-t-4 border-blue-500">
+<h2 class="text-2xl font-bold text-gray-900 mb-4">El Cambio de Paradigma: Del Buscador al Oráculo</h2>
+<p class="text-gray-600 mb-4 leading-relaxed">
+Estamos presenciando una migración histórica. Los usuarios ya no solo "buscan" enlaces azules; 
+<span class="font-bold text-indigo-600">conversan con LLMs</span> para obtener respuestas sintetizadas. 
+El GEO no trata de posicionar una URL, sino de **convencer al modelo** de que tu marca es la respuesta más citada, confiable y semánticamente relevante.
+</p>
+<div class="bg-blue-50 p-4 rounded-lg border border-blue-100">
+<p class="text-sm text-blue-800">
+<strong>Objetivo de tu App:</strong> Crear una infraestructura de agentes en Gemini Studio que inyecte datos estructurados y contexto semántico en las fuentes que alimentan a los LLMs.
+</p>
+</div>
+</div>
+<div class="bg-white p-6 rounded-xl shadow-md">
+<h3 class="text-lg font-semibold text-gray-700 mb-4 text-center">Cuota de Atención Digital (Proyección 2026)</h3>
+<div class="chart-container">
+<canvas id="marketShareChart"></canvas>
+</div>
+<p class="text-xs text-center text-gray-400 mt-2">Fuente: Datos sintéticos basados en tendencias de adopción de GenAI.</p>
+</div>
+</section>
+
+<!-- Section 2: SEO vs GEO Comparison -->
+<section>
+<div class="mb-6">
+<h2 class="text-2xl font-bold text-gray-900">SEO Tradicional vs. GEO Moderno</h2>
+<p class="text-gray-600 mt-2">
+Para implementar tu herramienta en Gemini, debes entender qué métricas cambian. 
+Mientras el SEO prioriza los backlinks y las keywords, el GEO prioriza la <strong>coherencia semántica</strong> y las <strong>menciones de entidad</strong>.
+</p>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Data Visualization -->
+<div class="lg:col-span-2 bg-white p-6 rounded-xl shadow-md">
+<h3 class="text-lg font-semibold text-gray-700 mb-2">Matriz de Prioridades Técnicas</h3>
+<div class="chart-container">
+<canvas id="radarComparisonChart"></canvas>
+</div>
+</div>
+
+<!-- Key Takeaways Card -->
+<div class="bg-gradient-to-br from-indigo-600 to-purple-700 text-white p-8 rounded-xl shadow-lg flex flex-col justify-center">
+<h3 class="text-2xl font-bold mb-4">Principios GEO</h3>
+<ul class="space-y-4">
+<li class="flex items-start">
+<span class="text-2xl mr-3">⚓</span>
+<div>
+<strong class="block text-indigo-200">Autoridad de Entidad</strong>
+<span class="text-sm opacity-90">Tu marca debe ser reconocida como una entidad única en el Knowledge Graph del modelo.</span>
+</div>
+</li>
+<li class="flex items-start">
+<span class="text-2xl mr-3">✍️</span>
+<div>
+<strong class="block text-indigo-200">Densidad de Citas</strong>
+<span class="text-sm opacity-90">No importan los enlaces, importan las menciones en textos de alta credibilidad (Papers, Prensa, Foros técnicos).</span>
+</div>
+</li>
+<li class="flex items-start">
+<span class="text-2xl mr-3">🔢</span>
+<div>
+<strong class="block text-indigo-200">Datos Estructurados</strong>
+<span class="text-sm opacity-90">JSON-LD es el lenguaje nativo que facilita a los LLMs "entender" tus productos.</span>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</section>
+
+<!-- Section 3: Implementation Blueprint for Gemini Studio -->
+<section class="bg-white rounded-xl shadow-md overflow-hidden">
+<div class="p-8 border-b border-gray-100">
+<h2 class="text-2xl font-bold text-gray-900">Arquitectura de Agentes para tu App</h2>
+<p class="text-gray-600 mt-2">
+Para automatizar el GEO, tu aplicación en Gemini Studio debe orquestar múltiples agentes especializados. 
+Este diagrama muestra el flujo de trabajo sugerido para "inyectar" relevancia en el ecosistema.
+</p>
+</div>
+
+<div class="p-8 bg-slate-50">
+<div class="grid grid-cols-1 md:grid-cols-5 gap-4 items-stretch text-center">
+
+<!-- Step 1 -->
+<div class="process-box bg-white p-5 rounded-lg shadow-sm flex flex-col items-center">
+<div class="text-4xl mb-3">🕵️‍♂️</div>
+<h4 class="font-bold text-gray-800">Agente Auditor</h4>
+<p class="text-xs text-gray-500 mt-2">Analiza cómo Gemini/GPT perciben la marca actualmente. Identifica brechas de información.</p>
+</div>
+
+<div class="flex items-center justify-center md:rotate-270">
+<div class="text-gray-400 text-2xl">➔</div>
+</div>
+
+<!-- Step 2 -->
+<div class="process-box bg-white p-5 rounded-lg shadow-sm flex flex-col items-center border-l-4 border-pink-500">
+<div class="text-4xl mb-3">📝</div>
+<h4 class="font-bold text-gray-800">Agente de Contenido</h4>
+<p class="text-xs text-gray-500 mt-2">Genera contenido técnico rico en entidades y formato "Pregunta-Respuesta" optimizado para RAG.</p>
+</div>
+
+<div class="flex items-center justify-center md:rotate-270">
+<div class="text-gray-400 text-2xl">➔</div>
+</div>
+
+<!-- Step 3 -->
+<div class="process-box bg-white p-5 rounded-lg shadow-sm flex flex-col items-center border-l-4 border-cyan-500">
+<div class="text-4xl mb-3">📢</div>
+<h4 class="font-bold text-gray-800">Agente de Difusión</h4>
+<p class="text-xs text-gray-500 mt-2">Sugiere o publica en plataformas de alta autoridad (Medium, LinkedIn, Reddit) para ganar citas.</p>
+</div>
+
+</div>
+
+<!-- Feedback Loop -->
+<div class="mt-8 bg-indigo-50 border border-indigo-200 rounded-lg p-4 text-center">
+<p class="text-indigo-800 font-semibold text-sm">🔄 Loop de Retroalimentación: El sistema monitorea cambios en las respuestas del LLM y ajusta la estrategia semanalmente.</p>
+</div>
+</div>
+</section>
+
+<!-- Section 4: Sources of Truth Analysis -->
+<section class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="bg-white p-6 rounded-xl shadow-md">
+<h3 class="text-xl font-bold text-gray-900 mb-4">¿De dónde aprenden los Modelos?</h3>
+<p class="text-sm text-gray-600 mb-4">
+Para optimizar, debes saber dónde "lee" el modelo. A diferencia del SEO (que busca dominios con alto DA), el GEO busca fuentes que alimentan el entrenamiento o los sistemas RAG (Retrieval-Augmented Generation).
+</p>
+<div class="chart-container">
+<canvas id="sourcesChart"></canvas>
+</div>
+</div>
+
+<div class="bg-white p-6 rounded-xl shadow-md flex flex-col">
+<h3 class="text-xl font-bold text-gray-900 mb-4">Análisis de Sentimiento y Entidades (Bubble Plot)</h3>
+<p class="text-sm text-gray-600 mb-2">
+Visualización avanzada de cómo los LLMs asocian conceptos a tu marca.
+<br><strong>Eje X:</strong> Relevancia Semántica.
+<br><strong>Eje Y:</strong> Autoridad Percebida.
+<br><strong>Tamaño:</strong> Frecuencia de mención.
+</p>
+<!-- Plotly Container -->
+<div id="plotlyBubbleChart" class="w-full flex-grow" style="min-height: 300px;"></div>
+</div>
+</section>
+
+<!-- Section 5: Future Projections -->
+<section class="bg-gray-900 text-white rounded-xl shadow-xl overflow-hidden p-8">
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
+<div class="lg:col-span-1">
+
+<h2 class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">
+El Futuro es GEO
+</h2>
+<p class="text-gray-300 mt-4 leading-relaxed">
+Implementar tu app ahora te dará la ventaja del "First Mover". 
+Mientras tus competidores siguen peleando por el ranking #1 en Google, tú estarás asegurando ser la <strong>única respuesta</strong> que Gemini ofrece a sus usuarios.
+</p>
+<div class="mt-6 border-t border-gray-700 pt-4">
+<div class="flex items-center mb-2">
+<span class="h-3 w-3 rounded-full bg-cyan-400 mr-2"></span>
+<span class="text-sm">Visibilidad en Chatbots (+200%)</span>
+</div>
+<div class="flex items-center">
+<span class="h-3 w-3 rounded-full bg-pink-500 mr-2"></span>
+<span class="text-sm">Confianza de Marca (+85%)</span>
+</div>
+</div>
+
+</div>
+<div class="lg:col-span-2">
+<div class="chart-container-large bg-gray-800 rounded-lg p-4">
+<canvas id="projectionChart"></canvas>
+</div>
+</div>
+</div>
+</section>
+
+</main>
+
+<footer class="bg-white border-t border-gray-200 mt-12 py-8 text-center">
+<p class="text-gray-500 text-sm">Generado por La Mediática Expert Agent. © 2026</p>
+<p class="text-xs text-gray-400 mt-1">Diseñado para integración con Gemini Studio y desarrollo de Agentes IA para GEO.</p>
+</footer>
+
+<!-- Scripts for Visualizations -->
+<script>
+// --- UTILITY FUNCTIONS ---
+
+// Function to wrap long labels (Chart.js requirement)
+function formatLabel(str, maxwidth) {
+    if (typeof str !== 'string') return str;
+    let sections = [];
+    let words = str.split(" ");
+    let temp = "";
+    words.forEach(function(item, index) {
+        if (temp.length > 0) {
+            let concat = temp + ' ' + item;
+            if (concat.length > maxwidth) {
+                sections.push(temp);
+                temp = "";
+            } else {
+                if (index == (words.length - 1)) {
+                    sections.push(concat);
+                    return;
+                } else {
+                    temp = concat;
+                    return;
+                }
+            }
+        }
+        if (index == (words.length - 1)) {
+            sections.push(item);
+            return;
+        }
+        if (item.length < maxwidth) {
+            temp = item;
+        } else {
+            sections.push(item);
+        }
+    });
+    return sections;
+}
+
+// Shared Tooltip Configuration (Requirement)
+const sharedTooltipConfig = {
+    callbacks: {
+        title: function(tooltipItems) {
+            const item = tooltipItems[0];
+            let label = item.chart.data.labels[item.dataIndex];
+            if (Array.isArray(label)) {
+                return label.join(' ');
+            } else {
+                return label;
+            }
+        }
+    }
+};
+
+// Common Chart Options
+const commonOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+        tooltip: sharedTooltipConfig,
+        legend: {
+            labels: {
+                font: { family: "'Inter', sans-serif" },
+                usePointStyle: true
+            }
+        }
+    }
+};
+
+// --- CHART 1: Market Share (Bar Chart) ---
+const ctxMarket = document.getElementById('marketShareChart').getContext('2d');
+const rawLabelsMarket = ["Búsqueda Tradicional (Google)", "IA Generativa (Gemini/ChatGPT)", "Redes Sociales (TikTok/IG)", "Búsqueda Directa (Apps)"];
+const formattedLabelsMarket = rawLabelsMarket.map(l => formatLabel(l, 16));
+
+new Chart(ctxMarket, {
+    type: 'bar',
+    data: {
+        labels: formattedLabelsMarket,
+        datasets: [{
+            label: 'Cuota de Mercado (%)',
+            data: [55, 30, 10, 5], // Hypothetical future data
+            backgroundColor: ['#E5E7EB', '#4F46E5', '#F472B6', '#22D3EE'],
+            borderRadius: 6,
+            borderWidth: 0,
+        }]
+    },
+    options: {
+        ...commonOptions,
+        plugins: {
+            ...commonOptions.plugins,
+            legend: { display: false } // Legend is redundant for bar chart with clear x-labels
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                grid: { color: 'rgba(0,0,0,0.05)' }
+            },
+            x: {
+                grid: { display: false }
+            }
+        }
+    }
+});
+
+// --- CHART 2: Radar Comparison (SEO vs GEO) ---
+const ctxRadar = document.getElementById('radarComparisonChart').getContext('2d');
+const rawLabelsRadar = ["Palabras Clave Exactas", "Backlinks (Cantidad)", "Autoridad Semántica", "Citas Contextuales", "Datos Estructurados", "Velocidad Técnica"];
+const formattedLabelsRadar = rawLabelsRadar.map(l => formatLabel(l, 16));
+
+new Chart(ctxRadar, {
+    type: 'radar',
+    data: {
+        labels: formattedLabelsRadar,
+        datasets: [{
+            label: 'SEO Tradicional',
+            data: [90, 85, 40, 30, 50, 80],
+            fill: true,
+            backgroundColor: 'rgba(156, 163, 175, 0.2)',
+            borderColor: 'rgb(156, 163, 175)',
+            pointBackgroundColor: 'rgb(156, 163, 175)',
+        }, {
+            label: 'GEO (Generative Optimization)',
+            data: [30, 40, 95, 90, 85, 60],
+            fill: true,
+            backgroundColor: 'rgba(79, 70, 229, 0.2)',
+            borderColor: '#4F46E5',
+            pointBackgroundColor: '#4F46E5',
+            pointBorderColor: '#fff'
+        }]
+    },
+    options: {
+        ...commonOptions,
+        scales: {
+            r: {
+                angleLines: { color: 'rgba(0,0,0,0.1)' },
+                grid: { color: 'rgba(0,0,0,0.05)' },
+                pointLabels: { font: { size: 11, family: "'Inter', sans-serif" } },
+                suggestedMin: 0,
+                suggestedMax: 100
+            }
+        }
+    }
+});
+
+// --- CHART 3: Sources of Truth (Horizontal Bar) ---
+const ctxSources = document.getElementById('sourcesChart').getContext('2d');
+const rawLabelsSources = ["Documentación Oficial / Whitepapers", "Medios de Prensa de Autoridad", "Foros Especializados (Reddit/StackOverflow)", "Blogs Corporativos", "Redes Sociales Generales"];
+const formattedLabelsSources = rawLabelsSources.map(l => formatLabel(l, 20));
+
+new Chart(ctxSources, {
+    type: 'bar',
+    data: {
+        labels: formattedLabelsSources,
+        datasets: [{
+            label: 'Peso en la Respuesta del LLM (Impacto)',
+            data: [95, 85, 75, 60, 30],
+            backgroundColor: [
+                '#4F46E5', // Indigo
+                '#6366F1', // Indigo Light
+                '#818CF8', // Indigo Lighter
+                '#A5B4FC',
+                '#C7D2FE'
+            ],
+            borderRadius: 5
+        }]
+    },
+    options: {
+        indexAxis: 'y', // Horizontal Bar
+        ...commonOptions,
+        scales: {
+            x: { grid: { display: false } },
+            y: { grid: { display: false } }
+        }
+    }
+});
+
+// --- CHART 4: Projection (Line Chart) ---
+const ctxProj = document.getElementById('projectionChart').getContext('2d');
+
+new Chart(ctxProj, {
+    type: 'line',
+    data: {
+        labels: ['Mes 1', 'Mes 3', 'Mes 6', 'Mes 9', 'Mes 12', 'Mes 18'],
+        datasets: [{
+            label: 'Visibilidad con Agentes GEO',
+            data: [100, 150, 280, 450, 700, 1200],
+            borderColor: '#22D3EE', // Cyan
+            backgroundColor: 'rgba(34, 211, 238, 0.1)',
+            fill: true,
+            tension: 0.4,
+            pointRadius: 4,
+            pointHoverRadius: 6
+        }, {
+            label: 'Estrategia Solo SEO',
+            data: [100, 110, 125, 135, 145, 155],
+            borderColor: '#6B7280', // Gray
+            borderDash: [5, 5],
+            fill: false,
+            tension: 0.2
+        }]
+    },
+    options: {
+        ...commonOptions,
+        plugins: {
+            ...commonOptions.plugins,
+            legend: { labels: { color: 'white' } },
+            tooltip: sharedTooltipConfig
+        },
+        scales: {
+            y: {
+                grid: { color: 'rgba(255,255,255,0.1)' },
+                ticks: { color: '#9CA3AF' }
+            },
+            x: {
+                grid: { display: false },
+                ticks: { color: '#9CA3AF' }
+            }
+        }
+    }
+});
+
+// --- CHART 5: Plotly Bubble Chart (Canvas) ---
+// Simulating a semantic analysis map
+
+var trace1 = {
+    x: [3.5, 4.5, 3.0, 1.5, 4.0, 2.0], // Relevancia Semántica (1-5)
+    y: [4.2, 4.8, 2.5, 2.0, 3.8, 3.5], // Autoridad de Fuente (1-5)
+    text: ['Tu Marca (Post-GEO)', 'Competidor Líder', 'Blog Genérico', 'Spam', 'Wiki/Docs', 'Redes Sociales'],
+    mode: 'markers',
+    marker: {
+        size: [45, 35, 20, 15, 30, 25], // Frecuencia de mención
+        color: ['#4F46E5', '#EF4444', '#9CA3AF', '#D1D5DB', '#10B981', '#F59E0B'],
+        opacity: 0.8
+    },
+    type: 'scatter'
+};
+
+var dataPlotly = [trace1];
+var layoutPlotly = {
+    margin: { t: 20, r: 20, b: 40, l: 40 },
+    showlegend: false,
+    xaxis: {
+        title: 'Relevancia Semántica (Contexto)',
+        range: [0, 5.5],
+        gridcolor: '#F3F4F6'
+    },
+    yaxis: {
+        title: 'Autoridad de Dominio/Fuente',
+        range: [0, 5.5],
+        gridcolor: '#F3F4F6'
+    },
+    paper_bgcolor: 'rgba(0,0,0,0)',
+    plot_bgcolor: 'rgba(0,0,0,0)',
+    font: { family: 'Inter, sans-serif' }
+};
+
+Plotly.newPlot('plotlyBubbleChart', dataPlotly, layoutPlotly, {responsive: true, displayModeBar: false});
+
+</script>
+</body>
+</html>

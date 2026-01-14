@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reporte de Salud Web - The Juju</title>
+<!-- Bootstrap 5 CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+--primary-color: #0b86a2; /* Azul corporativo/Teal */
+--highlight-color: #d5f355; /* Lime Green */
+--text-dark: #2c3e50;
+--bg-light: #f8f9fa;
+--white: #ffffff;
+}
+
+body {
+font-family: 'Outfit', sans-serif;
+background-color: var(--white);
+color: var(--text-dark);
+line-height: 1.6;
+}
+
+/* Hero Section */
+.hero-section {
+background: linear-gradient(135deg, var(--primary-color) 0%, #065f73 100%);
+color: white;
+padding: 4rem 0;
+border-bottom-left-radius: 50px;
+border-bottom-right-radius: 50px;
+margin-bottom: 3rem;
+position: relative;
+overflow: hidden;
+}
+
+.hero-pattern {
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+opacity: 0.1;
+background-image: radial-gradient(var(--highlight-color) 1px, transparent 1px);
+background-size: 20px 20px;
+}
+
+.score-card-main {
+background: rgba(255, 255, 255, 0.1);
+backdrop-filter: blur(10px);
+border: 1px solid rgba(255, 255, 255, 0.2);
+border-radius: 20px;
+padding: 2rem;
+text-align: center;
+}
+
+.global-score-circle {
+width: 150px;
+height: 150px;
+border-radius: 50%;
+background: var(--white);
+display: flex;
+align-items: center;
+justify-content: center;
+margin: 0 auto 1rem;
+border: 8px solid var(--highlight-color);
+box-shadow: 0 0 20px rgba(213, 243, 85, 0.4);
+}
+
+.global-score-text {
+font-size: 3rem;
+font-weight: 700;
+color: var(--primary-color);
+line-height: 1;
+}
+
+/* Dashboard Cards */
+.stat-card {
+border: none;
+border-radius: 15px;
+box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+transition: transform 0.3s ease;
+height: 100%;
+overflow: hidden;
+}
+
+.stat-card:hover {
+transform: translateY(-5px);
+}
+
+.stat-card .card-body {
+padding: 1.5rem;
+}
+
+.icon-box {
+width: 50px;
+height: 50px;
+border-radius: 12px;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 1.5rem;
+margin-bottom: 1rem;
+}
+
+/* Colores de estado */
+.bg-score-red { background-color: #fee2e2; color: #dc2626; }
+.bg-score-orange { background-color: #ffedd5; color: #ea580c; }
+.bg-score-green { background-color: #dcfce7; color: #16a34a; }
+.bg-score-primary { background-color: #e0f2f1; color: var(--primary-color); }
+
+/* Accordion Customization */
+.accordion-item {
+border: none;
+margin-bottom: 1rem;
+border-radius: 15px !important;
+box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+overflow: hidden;
+}
+
+.accordion-button {
+background-color: #f8f9fa;
+font-weight: 600;
+padding: 1.25rem;
+}
+
+.accordion-button:not(.collapsed) {
+background-color: #eefbfc;
+color: var(--primary-color);
+box-shadow: none;
+}
+
+.accordion-button:focus {
+box-shadow: none;
+border-color: rgba(11, 134, 162, 0.1);
+}
+
+/* Tabs inside Accordion */
+.nav-tabs {
+border-bottom: 2px solid #e9ecef;
+}
+
+.nav-tabs .nav-link {
+border: none;
+color: #6c757d;
+font-weight: 500;
+padding: 1rem 1.5rem;
+}
+.nav-tabs .nav-link.active {
+color: var(--primary-color);
+border-bottom: 3px solid var(--primary-color);
+background: transparent;
+}
+
+.tab-content {
+padding: 2rem;
+background-color: white;
+}
+
+.badge-severity {
+margin-right: 10px;
+font-size: 0.9em;
+}
+
+/* Radar Chart Container */
+.chart-container {
+position: relative;
+height: 300px;
+width: 100%;
+margin-top: 2rem;
+}
+
+/* Footer */
+footer {
+background-color: var(--primary-color);
+color: white;
+padding: 2rem 0;
+margin-top: 4rem;
+}
+
+/* Highlights */
+.highlight-text {
+color: var(--primary-color);
+font-weight: 700;
+}
+
+.btn-action {
+background-color: var(--primary-color);
+color: white;
+border: none;
+padding: 10px 25px;
+border-radius: 50px;
+font-weight: 600;
+}
+
+.btn-action:hover {
+background-color: #086a82;
+color: white;
+}
+
+/* Success List */
+.success-list li {
+margin-bottom: 10px;
+font-size: 1.1rem;
+}
+.success-list i {
+color: #16a34a;
+margin-right: 10px;
+}
+
+</style>
+</head>
+<body>
+
+<!-- HERO SECTION -->
+<section class="hero-section">
+<div class="hero-pattern"></div>
+<div class="container position-relative">
+<div class="row align-items-center">
+<div class="col-lg-7 mb-4 mb-lg-0">
+<span class="badge bg-warning text-dark mb-3 px-3 py-2 rounded-pill fw-bold">
+<i class="bi bi-calendar-check me-2"></i>Auditoría: Enero 2026
+</span>
+<h1 class="display-4 fw-bold mb-3">Diagnóstico y Plan de Acción</h1>
+<h2 class="h4 text-white-50 mb-4">Sitio Analizado: parts.cat.com/es/ferreyros</h2>
+<p class="lead mb-4">
+¡Buenas noticias! Tu sitio tiene una infraestructura robusta y confiable. Hemos identificado áreas específicas de oportunidad, especialmente en la <strong>experiencia móvil</strong>, que con unos ajustes estratégicos impulsarán tu posicionamiento y la satisfacción del usuario.
+</p>
+<a href="#action-plan" class="btn btn-light text-primary fw-bold px-4 py-2 rounded-pill">
+Ver mi Plan de Acción <i class="bi bi-arrow-down-circle ms-2"></i>
+</a>
+</div>
+
+<div class="col-lg-5">
+<div class="score-card-main">
+<h3 class="h5 mb-3 text-uppercase letter-spacing-2">Puntuaje Global</h3>
+<div class="global-score-circle">
+<span class="global-score-text">68</span>
+</div>
+<p class="mb-0 text-white-50">Sobre 100 puntos posibles</p>
+<div class="mt-3 text-warning fw-bold">
+<i class="bi bi-exclamation-triangle-fill me-2"></i>Potencial de Mejora Alto
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<div class="container">
+
+<!-- DASHBOARD SECTION -->
+<div class="row mb-5">
+<div class="col-12 mb-4">
+<h2 class="fw-bold"><i class="bi bi-speedometer2 me-2 text-primary"></i>Tu Sitio Web de un Vistazo</h2>
+<p class="text-muted">Desglose de las 4 áreas críticas analizadas por Google y herramientas técnicas.</p>
+</div>
+
+<!-- Card 1: Rendimiento -->
+<div class="col-md-6 col-lg-3 mb-4">
+<div class="stat-card">
+<div class="card-body">
+<div class="d-flex justify-content-between align-items-start">
+<div class="icon-box bg-score-red">
+<i class="bi bi-lightning-charge-fill"></i>
+</div>
+<span class="h2 fw-bold text-danger">45/100</span>
+</div>
+<h5 class="card-title fw-bold">Rendimiento</h5>
+<p class="card-text small text-muted">La velocidad de carga, especialmente en móviles, requiere atención inmediata.</p>
+</div>
+<div class="progress" style="height: 5px;">
+<div class="progress-bar bg-danger" role="progressbar" style="width: 45%"></div>
+</div>
+</div>
+</div>
+
+<!-- Card 2: SEO -->
+<div class="col-md-6 col-lg-3 mb-4">
+<div class="stat-card">
+<div class="card-body">
+<div class="d-flex justify-content-between align-items-start">
+<div class="icon-box bg-score-green">
+<i class="bi bi-search"></i>
+</div>
+<span class="h2 fw-bold text-success">92/100</span>
+</div>
+<h5 class="card-title fw-bold">SEO</h5>
+<p class="card-text small text-muted">Excelente estructura. Tu sitio es fácilmente entendible por los buscadores.</p>
+</div>
+<div class="progress" style="height: 5px;">
+<div class="progress-bar bg-success" role="progressbar" style="width: 92%"></div>
+</div>
+</div>
+</div>
+
+<!-- Card 3: Accesibilidad -->
+<div class="col-md-6 col-lg-3 mb-4">
+<div class="stat-card">
+<div class="card-body">
+<div class="d-flex justify-content-between align-items-start">
+<div class="icon-box bg-score-orange">
+<i class="bi bi-universal-access"></i>
+</div>
+<span class="h2 fw-bold text-warning">78/100</span>
+</div>
+<h5 class="card-title fw-bold">Accesibilidad</h5>
+<p class="card-text small text-muted">Bueno, pero faltan etiquetas en algunos botones y contraste en textos.</p>
+</div>
+<div class="progress" style="height: 5px;">
+<div class="progress-bar bg-warning" role="progressbar" style="width: 78%"></div>
+</div>
+</div>
+</div>
+
+<!-- Card 4: Buenas Prácticas -->
+<div class="col-md-6 col-lg-3 mb-4">
+<div class="stat-card">
+<div class="card-body">
+<div class="d-flex justify-content-between align-items-start">
+<div class="icon-box bg-score-primary">
+<i class="bi bi-shield-check"></i>
+</div>
+<span class="h2 fw-bold" style="color: var(--primary-color)">85/100</span>
+</div>
+<h5 class="card-title fw-bold">Salud Técnica</h5>
+<p class="card-text small text-muted">Código moderno y seguro. HTTPS activo y bibliotecas actualizadas.</p>
+</div>
+<div class="progress" style="height: 5px;">
+<div class="progress-bar" role="progressbar" style="width: 85%; background-color: var(--primary-color)"></div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- RADAR CHART SECTION -->
+<div class="row justify-content-center mb-5">
+<div class="col-md-8 text-center">
+<h4 class="mb-3">Visualización de Equilibrio</h4>
+<p class="text-muted mb-0">Lo ideal es un gráfico amplio y equilibrado. Actualmente tenemos un sesgo hacia la optimización técnica, descuidando la velocidad pura.</p>
+<div class="chart-container">
+<canvas id="auditChart"></canvas>
+</div>
+</div>
+</div>
+
+<!-- ACTION PLAN SECTION -->
+<div class="row mb-5" id="action-plan">
+<div class="col-12">
+<div class="d-flex align-items-center mb-4">
+<div class="bg-primary text-white rounded-circle p-2 me-3 d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+<i class="bi bi-list-check fs-4"></i>
+</div>
+<div>
+<h2 class="fw-bold mb-0">Tu Plan de Acción Priorizado</h2>
+<p class="text-muted mb-0">Sigue estos pasos para mejorar tu puntuación global.</p>
+</div>
+</div>
+
+<!-- Accordion -->
+<div class="accordion" id="accordionPlan">
+
+<!-- ITEM 1: CRITICAL LCP -->
+<div class="accordion-item border-start border-5 border-danger">
+<h2 class="accordion-header" id="headingOne">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+<span class="badge bg-danger me-3">🔴 Crítico</span>
+El contenido principal tarda mucho en aparecer (LCP: 4.8s)
+</button>
+</h2>
+<div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionPlan">
+<div class="accordion-body p-0">
+<ul class="nav nav-tabs" id="myTab1" role="tablist">
+<li class="nav-item" role="presentation">
+<button class="nav-link active" id="what-tab1" data-bs-toggle="tab" data-bs-target="#what1" type="button" role="tab"><i class="bi bi-question-circle me-2"></i>¿Qué es?</button>
+</li>
+<li class="nav-item" role="presentation">
+<button class="nav-link" id="why-tab1" data-bs-toggle="tab" data-bs-target="#why1" type="button" role="tab"><i class="bi bi-bullseye me-2"></i>Impacto</button>
+</li>
+<li class="nav-item" role="presentation">
+<button class="nav-link" id="how-tab1" data-bs-toggle="tab" data-bs-target="#how1" type="button" role="tab"><i class="bi bi-tools me-2"></i>Solución</button>
+</li>
+</ul>
+<div class="tab-content" id="myTabContent1">
+<div class="tab-pane fade show active" id="what1" role="tabpanel">
+<h5 class="highlight-text">Imagina una tienda con la persiana a medio subir...</h5>
+<p>El LCP (Largest Contentful Paint) mide cuánto tarda en pintarse el elemento más grande visible en la pantalla (usualmente una imagen de producto o un banner). Ahora mismo tarda <strong>4.8 segundos</strong> en móviles. Es como si un cliente entra a tu tienda y tiene que esperar 5 segundos en la oscuridad antes de ver el primer producto.</p>
+</div>
+<div class="tab-pane fade" id="why1" role="tabpanel">
+<ul class="list-unstyled">
+<li class="mb-3"><i class="bi bi-arrow-right-circle-fill text-danger me-2"></i><strong>Fuga de clientes:</strong> Google indica que si la carga pasa de 1s a 3s, la probabilidad de rebote aumenta un 32%.</li>
+<li class="mb-3"><i class="bi bi-arrow-right-circle-fill text-danger me-2"></i><strong>Ranking SEO:</strong> Es un factor directo de posicionamiento. Una web lenta aparece más abajo.</li>
+</ul>
+</div>
+<div class="tab-pane fade" id="how1" role="tabpanel">
+<ol>
+<li class="mb-2"><strong>Optimiza la imagen principal:</strong> La imagen del banner o producto pesa demasiado. Usa formatos WebP en lugar de PNG/JPG.</li>
+<li class="mb-2"><strong>Precarga (Preload):</strong> Pide a desarrollo que añada <code>&lt;link rel="preload"&gt;</code> para la imagen destacada en el encabezado.</li>
+<li class="mb-2"><strong>CDN:</strong> Asegúrate de que las imágenes se sirven desde un servidor cercano al usuario (CDN).</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- ITEM 2: CLS -->
+<div class="accordion-item border-start border-5 border-warning">
+<h2 class="accordion-header" id="headingTwo">
+<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+<span class="badge bg-warning text-dark me-3">🟡 Importante</span>
+Elementos visuales inestables (CLS: 0.25)
+</button>
+</h2>
+<div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionPlan">
+<div class="accordion-body p-0">
+<ul class="nav nav-tabs" id="myTab2" role="tablist">
+<li class="nav-item" role="presentation">
+<button class="nav-link active" id="what-tab2" data-bs-toggle="tab" data-bs-target="#what2" type="button" role="tab">¿Qué es?</button>
+</li>
+<li class="nav-item" role="presentation">
+<button class="nav-link" id="why-tab2" data-bs-toggle="tab" data-bs-target="#why2" type="button" role="tab">Impacto</button>
+</li>
+<li class="nav-item" role="presentation">
+<button class="nav-link" id="how-tab2" data-bs-toggle="tab" data-bs-target="#how2" type="button" role="tab">Solución</button>
+</li>
+</ul>
+<div class="tab-content">
+<div class="tab-pane fade show active" id="what2" role="tabpanel">
+<h5 class="highlight-text">El "baile" molesto de la web</h5>
+<p>El CLS (Cumulative Layout Shift) mide cuánto se mueven las cosas mientras la página carga. Un 0.25 indica que los botones o textos saltan de lugar inesperadamente, a menudo causando clics erróneos.</p>
+</div>
+<div class="tab-pane fade" id="why2" role="tabpanel">
+<p>Genera frustración extrema. ¿Alguna vez has intentado dar clic en "Comprar" y de repente apareció un anuncio y diste clic en otra cosa? Eso es un mal CLS. Reduce la confianza del usuario drásticamente.</p>
+</div>
+<div class="tab-pane fade" id="how2" role="tabpanel">
+<ol>
+<li class="mb-2"><strong>Reserva espacio para imágenes:</strong> Asegúrate de que todas las etiquetas <code>&lt;img&gt;</code> tengan atributos <code>width</code> y <code>height</code> definidos en el HTML.</li>
+<li class="mb-2"><strong>Fuentes tipográficas:</strong> Configura la propiedad CSS <code>font-display: swap</code> para evitar que el texto cambie de tamaño al cargar la fuente final.</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- ITEM 3: JAVASCRIPT -->
+<div class="accordion-item border-start border-5 border-warning">
+<h2 class="accordion-header" id="headingThree">
+<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+<span class="badge bg-warning text-dark me-3">🟡 Importante</span>
+Código JavaScript no utilizado bloqueando la carga
+</button>
+</h2>
+<div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionPlan">
+<div class="accordion-body p-0">
+<ul class="nav nav-tabs" id="myTab3" role="tablist">
+<li class="nav-item" role="presentation">
+<button class="nav-link active" id="what-tab3" data-bs-toggle="tab" data-bs-target="#what3" type="button" role="tab">¿Qué es?</button>
+</li>
+<li class="nav-item" role="presentation">
+<button class="nav-link" id="why-tab3" data-bs-toggle="tab" data-bs-target="#why3" type="button" role="tab">Impacto</button>
+</li>
+<li class="nav-item" role="presentation">
+<button class="nav-link" id="how-tab3" data-bs-toggle="tab" data-bs-target="#how3" type="button" role="tab">Solución</button>
+</li>
+</ul>
+<div class="tab-content">
+<div class="tab-pane fade show active" id="what3" role="tabpanel">
+<h5 class="highlight-text">Exceso de equipaje</h5>
+<p>Tu sitio está cargando archivos de código (scripts) gigantescos, pero solo usa una pequeña parte de ellos para mostrar la página inicial. Es como llevar una maleta de 30kg para un viaje de un día.</p>
+</div>
+<div class="tab-pane fade" id="why3" role="tabpanel">
+<p>Los teléfonos móviles tienen procesadores menos potentes que las computadoras. Procesar todo este código innecesario congela el teléfono del usuario durante segundos vitales.</p>
+</div>
+<div class="tab-pane fade" id="how3" role="tabpanel">
+<ol>
+<li class="mb-2"><strong>Code Splitting:</strong> Dividir los archivos JS grandes en trozos más pequeños que se carguen solo cuando se necesiten.</li>
+<li class="mb-2"><strong>Defer/Async:</strong> Añadir atributos <code>defer</code> a los scripts que no son esenciales para la visualización inicial.</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- ITEM 4: IMAGES FORMAT -->
+<div class="accordion-item border-start border-5 border-success">
+<h2 class="accordion-header" id="headingFour">
+<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+<span class="badge bg-success me-3">🟢 Optimización</span>
+Servir imágenes en formatos de nueva generación
+</button>
+</h2>
+<div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionPlan">
+<div class="accordion-body p-0">
+<ul class="nav nav-tabs" id="myTab4" role="tablist">
+<li class="nav-item" role="presentation">
+<button class="nav-link active" id="what-tab4" data-bs-toggle="tab" data-bs-target="#what4" type="button" role="tab">¿Qué es?</button>
+</li>
+<li class="nav-item" role="presentation">
+<button class="nav-link" id="why-tab4" data-bs-toggle="tab" data-bs-target="#why4" type="button" role="tab">Impacto</button>
+</li>
+<li class="nav-item" role="presentation">
+<button class="nav-link" id="how-tab4" data-bs-toggle="tab" data-bs-target="#how4" type="button" role="tab">Solución</button>
+</li>
+</ul>
+<div class="tab-content">
+<div class="tab-pane fade show active" id="what4" role="tabpanel">
+<h5 class="highlight-text">Actualizar a tecnología moderna</h5>
+<p>Estás usando formatos JPG y PNG tradicionales. Existen formatos nuevos como <strong>WebP</strong> o <strong>AVIF</strong> que tienen la misma calidad pero pesan la mitad.</p>
+</div>
+<div class="tab-pane fade" id="why4" role="tabpanel">
+<p>Menor peso = carga más rápida = menor consumo de datos para tus usuarios móviles.</p>
+</div>
+<div class="tab-pane fade" id="how4" role="tabpanel">
+<p>Utiliza un plugin o configuración en tu servidor para convertir automáticamente las imágenes subidas a formato WebP.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+
+<!-- SUCCESS SECTION -->
+<div class="row mb-5">
+<div class="col-12">
+<div class="card bg-light border-0 shadow-sm">
+<div class="card-body p-4">
+<h3 class="fw-bold mb-4">🎉 ¡Excelente Trabajo Aquí!</h3>
+<p>No todo son correcciones. Tienes bases muy sólidas que debemos mantener:</p>
+<div class="row">
+<div class="col-md-6">
+<ul class="list-unstyled success-list">
+<li><i class="bi bi-check-circle-fill"></i> Protocolo HTTPS seguro implementado correctamente.</li>
+<li><i class="bi bi-check-circle-fill"></i> El sitio es "Mobile Friendly" (se adapta a pantallas).</li>
+<li><i class="bi bi-check-circle-fill"></i> Etiquetas Meta para SEO bien configuradas.</li>
+</ul>
+</div>
+<div class="col-md-6">
+<ul class="list-unstyled success-list">
+<li><i class="bi bi-check-circle-fill"></i> Estructura de encabezados (H1, H2) lógica.</li>
+<li><i class="bi bi-check-circle-fill"></i> No hay redirecciones maliciosas o enlaces rotos críticos.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+<!-- FOOTER -->
+<footer class="text-center">
+<div class="container">
+<p class="mb-2">Reporte generado por <strong>The Juju</strong></p>
+<p class="small opacity-50">Basado en auditoría para parts.cat.com | Enero 2026</p>
+</div>
+</footer>
+
+<!-- Bootstrap Bundle JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- Interactive Scripts -->
+<script>
+// Inicialización del Gráfico de Radar
+document.addEventListener("DOMContentLoaded", function() {
+    const ctx = document.getElementById('auditChart').getContext('2d');
+
+    const data = {
+        labels: ['Rendimiento', 'SEO', 'Accesibilidad', 'Buenas Prácticas', 'PWA'],
+        datasets: [{
+            label: 'Puntuación Actual',
+            data: [45, 92, 78, 85, 40], // Datos simulados basados en el perfil
+            fill: true,
+            backgroundColor: 'rgba(213, 243, 85, 0.4)', // Color destacado con transparencia
+            borderColor: '#0b86a2', // Color primario
+            pointBackgroundColor: '#0b86a2',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: '#0b86a2'
+        }]
+    };
+
+    const config = {
+        type: 'radar',
+        data: data,
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            elements: {
+                line: {
+                    borderWidth: 3
+                }
+            },
+            scales: {
+                r: {
+                    angleLines: {
+                        display: true
+                    },
+                    suggestedMin: 0,
+                    suggestedMax: 100,
+                    ticks: {
+                        backdropColor: 'transparent' // Ocultar fondo de etiquetas
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
+        }
+    };
+
+    new Chart(ctx, config);
+});
+</script>
+</body>
+</html>
