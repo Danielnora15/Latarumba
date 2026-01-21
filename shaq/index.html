@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reporte de Salud Web - www.shaq.com.ar</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+    <style>
+        :root {
+            --primary-color: #0b86a2; /* Color Secundario solicitado */
+            --accent-color: #d5f355; /* Color Destacado solicitado */
+            --bg-color: #ffffff; /* Fondo Blanco */
+            --text-dark: #212529;
+            --card-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: var(--text-dark);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background-color: var(--bg-color);
+            padding: 4rem 0;
+            border-bottom: 5px solid var(--accent-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-title {
+            color: var(--primary-color);
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .score-card-main {
+            background: linear-gradient(135deg, var(--primary-color), #086d85);
+            color: white;
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: var(--card-shadow);
+            position: relative;
+        }
+
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            border: 8px solid var(--accent-color);
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        /* Dashboard Cards */
+        .stat-card {
+            background: white;
+            border: none;
+            border-radius: 15px;
+            padding: 1.5rem;
+            height: 100%;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: var(--card-shadow);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        .stat-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .stat-score {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        /* Radar Chart Container */
+        .chart-container {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: var(--card-shadow);
+            margin-top: 2rem;
+        }
+
+        /* Action Plan Accordion */
+        .accordion-item {
+            border: none;
+            margin-bottom: 1rem;
+            border-radius: 10px !important;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .accordion-button {
+            background-color: white;
+            font-weight: 600;
+            padding: 1.5rem;
+        }
+
+        .accordion-button:not(.collapsed) {
+            background-color: #f0f8ff;
+            color: var(--primary-color);
+            box-shadow: none;
+        }
+
+        .accordion-button:focus {
+            box-shadow: none;
+            border-color: rgba(0,0,0,0.1);
+        }
+
+        /* Custom Tabs inside Accordion */
+        .nav-tabs .nav-link {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .nav-tabs .nav-link.active {
+            color: var(--text-dark);
+            border-top: 3px solid var(--accent-color);
+        }
+
+        .tab-content {
+            padding: 1.5rem;
+            background: white;
+            border: 1px solid #dee2e6;
+            border-top: none;
+            border-radius: 0 0 5px 5px;
+        }
+
+        /* Severity Indicators */
+        .severity-dot {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .bg-critical { background-color: #dc3545; box-shadow: 0 0 5px #dc3545;}
+        .bg-important { background-color: #ffc107; box-shadow: 0 0 5px #ffc107;}
+        .bg-optimization { background-color: #198754; box-shadow: 0 0 5px #198754;}
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
+
+        .highlight-text {
+            background-color: var(--accent-color);
+            padding: 0 5px;
+            border-radius: 3px;
+            color: var(--text-dark);
+            font-weight: bold;
+        }
+
+        .good-points ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .good-points li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+        }
+        .good-points i {
+            color: #198754;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <section class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-7 mb-4 mb-lg-0">
+                    <h5 class="text-uppercase text-muted ls-2">Auditoría Técnica & UX</h5>
+                    <h1 class="display-4 hero-title">Diagnóstico y Plan de Acción</h1>
+                    <h3 class="h4 mb-4 text-muted">para <span class="text-dark">www.shaq.com.ar</span></h3>
+                    <p class="lead mb-4">
+                        ¡Hola! En Mediática hemos analizado tu sitio. La buena noticia es que tienes una <strong>base establecida en Shopify</strong> sobre la que trabajar (Calificación General: <span class="highlight-text">C+</span>). Sin embargo, hemos detectado que el <strong>Rendimiento (Carga)</strong> es el área crítica que está frenando tu crecimiento. Hay serios problemas en posicionamiento y en la gestión de enlaces, se requiere una gran intervención a nivel de palabras clave, descripciones en los productos y en cada imagen. Un factor enorme que hay que destacar es que el sitio posee varios scripts que están sueltos; la mejor práctica es hacerlo vía Tag Manager, sobre todo si se tiene la intención de realizar pauta publicitaria.
+                    </p>
+                    <a href="#action-plan" class="btn btn-dark btn-lg px-4" style="background-color: var(--primary-color); border:none;">Ver mi Plan de Acción 👇</a>
+                </div>
+                <div class="col-lg-5">
+                    <div class="score-card-main">
+                        <h5>Puntaje Global de Salud</h5>
+                        <div class="score-circle">72</div>
+                        <p class="mb-0">Tu web es funcional, pero tiene un potencial oculto que vamos a desbloquear hoy.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container py-5">
+        <div class="row mb-4">
+            <div class="col-12 text-center">
+                <h2 class="fw-bold" style="color: var(--primary-color);">Tu Sitio Web de un Vistazo</h2>
+                <p class="text-muted">Desglose de las 4 áreas pilares de una web exitosa</p>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-3">
+                <div class="stat-card text-center">
+                    <i class="bi bi-speedometer2 stat-icon"></i>
+                    <div class="stat-score text-danger">58/100</div>
+                    <h5 class="card-title mt-2">Rendimiento</h5>
+                    <p class="small text-muted">Velocidad de carga e interactividad.</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-card text-center">
+                    <i class="bi bi-search stat-icon"></i>
+                    <div class="stat-score text-success">81/100</div>
+                    <h5 class="card-title mt-2">SEO</h5>
+                    <p class="small text-muted">Visibilidad en buscadores.</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-card text-center">
+                    <i class="bi bi-universal-access stat-icon"></i>
+                    <div class="stat-score text-warning">70/100</div>
+                    <h5 class="card-title mt-2">Accesibilidad</h5>
+                    <p class="small text-muted">Facilidad de uso para todos.</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-card text-center">
+                    <i class="bi bi-hand-thumbs-up stat-icon"></i>
+                    <div class="stat-score text-success">79/100</div>
+                    <h5 class="card-title mt-2">Buenas Prácticas</h5>
+                    <p class="small text-muted">Seguridad y estándares modernos.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4 justify-content-center">
+            <div class="col-md-8">
+                <div class="chart-container">
+                    <canvas id="auditChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="action-plan" class="container py-5">
+        <div class="row mb-4">
+            <div class="col-12">
+                <h2 class="fw-bold" style="color: var(--primary-color);">🚀 Tu Plan de Acción Priorizado</h2>
+                <p>Hemos organizado tus tareas por impacto. Comienza por las <span class="text-danger fw-bold">Rojas (Críticas)</span> para ver resultados rápidos.</p>
+            </div>
+        </div>
+
+        <div class="accordion" id="accordionPlan">
+            <div class="accordion-item border-danger">
+                <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        <span class="severity-dot bg-critical"></span>
+                        🔴 La carga inicial es lenta (LCP > 4s) - Prioridad Máxima
+                    </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionPlan">
+                    <div class="accordion-body p-0">
+                        <ul class="nav nav-tabs nav-fill" id="myTab1" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="what-tab-1" data-bs-toggle="tab" data-bs-target="#what-1" type="button" role="tab">🤔 ¿Qué es?</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="why-tab-1" data-bs-toggle="tab" data-bs-target="#why-1" type="button" role="tab">🎯 ¿Por qué afecta?</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="how-tab-1" data-bs-toggle="tab" data-bs-target="#how-1" type="button" role="tab">🛠️ ¿Cómo arreglarlo?</button>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="myTabContent1">
+                            <div class="tab-pane fade show active" id="what-1" role="tabpanel">
+                                <p><strong>Imagina esto:</strong> Entras a una tienda física y las luces tardan 4 segundos en encenderse. ¿Te quedarías? Probablemente no.</p>
+                                <p>El <strong>LCP (Largest Contentful Paint)</strong> mide cuánto tarda en aparecer el contenido más grande (generalmente el banner principal o una imagen de producto) en la pantalla de tu usuario. Actualmente está tardando demasiado.</p>
+                            </div>
+                            <div class="tab-pane fade" id="why-1" role="tabpanel">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">📉 <strong>Pérdida de Clientes:</strong> Si tu web tarda más de 3 segundos, el 53% de los usuarios móviles se van.</li>
+                                    <li class="list-group-item">🔍 <strong>Castigo de Google:</strong> Google penaliza el posicionamiento de sitios lentos.</li>
+                                    <li class="list-group-item">💰 <strong>Menos Conversiones:</strong> Cada segundo de retraso reduce las conversiones en un 7%.</li>
+                                </ul>
+                            </div>
+                            <div class="tab-pane fade" id="how-1" role="tabpanel">
+                                <h6>Pasos para tu desarrollador web:</h6>
+                                <ol>
+                                    <li class="mb-2"><strong>Optimizar Imágenes:</strong> Las imágenes del banner principal parecen muy pesadas. Usa formatos modernos como <code>WebP</code> en lugar de JPG/PNG.</li>
+                                    <li class="mb-2"><strong>Precarga (Preload):</strong> Agrega <code>&lt;link rel="preload"&gt;</code> en el encabezado para la imagen principal del banner.</li>
+                                    <li class="mb-2"><strong>Mejorar Servidor:</strong> Verifica si tu hosting está respondiendo rápido (TTFB). Si es lento, considera activar caché de servidor.</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingTwo">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        <span class="severity-dot bg-important"></span>
+                        🟡 Faltan descripciones en imágenes (Atributos Alt)
+                    </button>
+                </h2>
+                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionPlan">
+                    <div class="accordion-body p-0">
+                        <ul class="nav nav-tabs nav-fill" id="myTab2" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="what-tab-2" data-bs-toggle="tab" data-bs-target="#what-2" type="button" role="tab">🤔 ¿Qué es?</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="why-tab-2" data-bs-toggle="tab" data-bs-target="#why-2" type="button" role="tab">🎯 ¿Por qué afecta?</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="how-tab-2" data-bs-toggle="tab" data-bs-target="#how-2" type="button" role="tab">🛠️ ¿Cómo arreglarlo?</button>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="myTabContent2">
+                            <div class="tab-pane fade show active" id="what-2" role="tabpanel">
+                                <p>El atributo "Alt" es una etiqueta invisible para el usuario promedio que describe qué hay en una imagen. Es lo que "leen" Google y los lectores de pantalla para personas con discapacidad visual.</p>
+                            </div>
+                            <div class="tab-pane fade" id="why-2" role="tabpanel">
+                                <ul>
+                                    <li><strong>SEO de Imágenes:</strong> Sin esto, Google no sabe de qué tratan tus fotos y no aparecerás en Google Imágenes.</li>
+                                    <li><strong>Accesibilidad:</strong> Excluyes a usuarios que utilizan lectores de pantalla.</li>
+                                </ul>
+                            </div>
+                            <div class="tab-pane fade" id="how-2" role="tabpanel">
+                                <p>Revisa tu gestor de contenido (WordPress, Shopify, etc.) y en cada imagen de producto o banner, rellena el campo "Texto Alternativo".</p>
+                                <p><em>Ejemplo malo:</em> "foto1.jpg"</p>
+                                <p><em>Ejemplo bueno:</em> "Zapatillas deportivas Shaq color rojo modelo retro"</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingThree">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        <span class="severity-dot bg-important"></span>
+                        🟡 Recursos que bloquean el renderizado (JavaScript/CSS)
+                    </button>
+                </h2>
+                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionPlan">
+                    <div class="accordion-body p-0">
+                        <ul class="nav nav-tabs nav-fill" id="myTab3" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="what-tab-3" data-bs-toggle="tab" data-bs-target="#what-3" type="button" role="tab">🤔 ¿Qué es?</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="why-tab-3" data-bs-toggle="tab" data-bs-target="#why-3" type="button" role="tab">🎯 ¿Por qué afecta?</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="how-tab-3" data-bs-toggle="tab" data-bs-target="#how-3" type="button" role="tab">🛠️ ¿Cómo arreglarlo?</button>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="myTabContent3">
+                            <div class="tab-pane fade show active" id="what-3" role="tabpanel">
+                                <p>Tu sitio web está intentando cargar scripts complejos (interactividad, chats, analíticas) <strong>antes</strong> de mostrar el contenido visual al usuario. Es como si un restaurante no te dejara sentar hasta que el chef termine de cocinar para todos.</p>
+                            </div>
+                            <div class="tab-pane fade" id="why-3" role="tabpanel">
+                                <p>Esto causa esa sensación de "pantalla en blanco" al inicio. El usuario ve que la barra de carga avanza pero la pantalla sigue vacía.</p>
+                            </div>
+                            <div class="tab-pane fade" id="how-3" role="tabpanel">
+                                <p><strong>Solución técnica:</strong></p>
+                                <ul>
+                                    <li>Mover los scripts no esenciales al pie de página (footer).</li>
+                                    <li>Usar los atributos <code>defer</code> o <code>async</code> en las etiquetas <code>&lt;script&gt;</code> para que carguen en segundo plano.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingFour">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                        <span class="severity-dot bg-optimization"></span>
+                        🟢 Optimización de Títulos SEO (Longitud)
+                    </button>
+                </h2>
+                <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionPlan">
+                    <div class="accordion-body p-0">
+                        <div class="p-4">
+                            <p>Algunos de tus títulos de página son un poco cortos. Aprovecha el espacio (hasta 60 caracteres) para incluir palabras clave relevantes como "Zapatillas de Basket", "Ropa Deportiva", etc., junto a tu marca Shaq.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container mb-5">
+        <div class="card border-0 shadow-sm" style="background-color: #f0fdf4;">
+            <div class="card-body p-4">
+                <h3 class="fw-bold text-success mb-3">👏 ¡Excelente Trabajo Aquí!</h3>
+                <p>No todo son correcciones. Tienes bases muy sólidas en estos aspectos:</p>
+                <div class="row good-points">
+                    <div class="col-md-6">
+                        <ul>
+                            <li><i class="bi bi-check-circle-fill"></i> <strong>Seguridad SSL:</strong> Tu sitio usa HTTPS, protegiendo los datos de tus usuarios.</li>
+                            <li><i class="bi bi-check-circle-fill"></i> <strong>Mobile Friendly:</strong> El diseño se adapta correctamente a pantallas de celulares (Viewport configurado).</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <ul>
+                            <li><i class="bi bi-check-circle-fill"></i> <strong>Favicon:</strong> Tienes el ícono de marca en la pestaña del navegador.</li>
+                            <li><i class="bi bi-check-circle-fill"></i> <strong>Estructura de Enlaces:</strong> Tus URLs son legibles y limpias.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="text-center">
+        <div class="container">
+            <p class="mb-0">Reporte generado por <strong>Mediática</strong> | 2026</p>
+            <small style="color: var(--accent-color);">Para más detalles se suministra la auditoría completa.</small>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        // Inicialización del Gráfico de Radar
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('auditChart').getContext('2d');
+
+            const data = {
+                labels: ['Rendimiento', 'SEO', 'Accesibilidad', 'Buenas Prácticas', 'PWA'],
+                datasets: [{
+                    label: 'Puntuación Shaq.com.ar',
+                    data: [58, 81, 70, 79, 40],
+                    fill: true,
+                    backgroundColor: 'rgba(11, 134, 162, 0.2)',
+                    borderColor: '#0b86a2',
+                    pointBackgroundColor: '#d5f355',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: '#d5f355'
+                }]
+            };
+
+            const config = {
+                type: 'radar',
+                data: data,
+                options: {
+                    elements: {
+                        line: {
+                            borderWidth: 3
+                        }
+                    },
+                    scales: {
+                        r: {
+                            angleLines: {
+                                display: true
+                            },
+                            suggestedMin: 0,
+                            suggestedMax: 100,
+                            ticks: {
+                                stepSize: 20,
+                                backdropColor: 'transparent'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            };
+
+            new Chart(ctx, config);
+        });
+    </script>
+</body>
+</html>
